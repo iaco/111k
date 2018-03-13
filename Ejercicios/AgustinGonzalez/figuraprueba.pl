@@ -36,5 +36,16 @@ print "El area del circulo es: $areaC\n";
 
 $img=$circulo->draw($img);
 
+my @test = ($circulo->centro);
+my @puntoext = $circulo->punto;
+print	"el centro del circulo esta en ($test[0],$test[1])\n";
+print	"el punto exterior del circulo esta en ($puntoext[0],$puntoext[1])\n";
+$circulo->centro(600,0);
+@test = ($circulo->centro);
+@puntoext = $circulo->punto;
+print	"el centro del circulo esta en ($test[0],$test[1])\n";
+print	"el punto exterior del circulo esta en ($puntoext[0],$puntoext[1])\n";
+$img = $circulo->draw($img);
+
 print FH $img->png;
 close FH;
