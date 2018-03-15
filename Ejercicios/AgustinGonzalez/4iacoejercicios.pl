@@ -2,17 +2,32 @@
 
 use Lingua::EN::Words2Nums;
 
-my $num = words2nums ("one hundred thirty three");
-print $num;
+my $path = shift;
+
+my $fh_entrada;
+open($fh_entrada,"<",$path);
+
+my %palabras= {};
+while (chomp (my $line = <$fh_entrada>))
+{
+	my $numero = words2nums($line);
+	$palabras{$numero} =$line;
+}
+
+
+foreach	my $key (sort compareNums keys %palabras)
+{
+	print "$palabras{$key}\n";
+}
+close ($fh_entrada);
+exit;
 
 
 
-print $word;
-
-print 4<=>3;
-print "\n";
-print 4<=>4;
-print "\n";
 
 
-
+sub compareNums
+{
+	my ($a,$b) = @_;
+	return ($b<=>$a);#Al reves para que ordene descendientemente
+}
