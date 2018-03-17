@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-
+## Recive un path y crea un archivo png donde pone las figuras
 
 use lib "/home/agustin/perl";
 use Figura;

@@ -7,6 +7,34 @@ use warnings;
 no if $] >= 5.018, warnings => "experimental::smartmatch";#para que no vuelvan loco las advertencias al usar given
 
 
+#PROGRAMA MAIN
+my $seleccion = shift;
+
+given ($seleccion)
+{
+	when (1) {&Ejercicio1}
+	when (5) {&Ejercicio5}
+	when (6) {&Ejercicio6}
+	when (7) {&Ejercicio7}
+	when (8) {&Ejercicio8}
+	when (9) {&Ejercicio9}
+	when (10) {&Ejercicio10}
+	when (11) {&Ejercicio11}
+	when (12) {&Ejercicio12}
+	when (13) {&Ejercicio13}
+	when (14) {&Ejercicio14}
+	when (15) {&Ejercicio15}
+	when (16) {&Ejercicio16}
+	when (17) {&Ejercicio17}
+	when (18) {&Ejercicio18}
+	when (19) {&Ejercicio19}
+
+	default {print "Ingrese un numero de ejercicio valido"}
+}
+
+
+#########SUBS#####################
+
 sub Circunferencia
 {
 	my $radio=shift;
@@ -401,27 +429,3 @@ sub Ejercicio17
 }
 
 
-#PROGRAMA MAIN
-my $seleccion = shift;
-
-given ($seleccion)
-{
-	when (1) {&Ejercicio1}
-	when (5) {&Ejercicio5}
-	when (6) {&Ejercicio6}
-	when (7) {&Ejercicio7}
-	when (8) {&Ejercicio8}
-	when (9) {&Ejercicio9}
-	when (10) {&Ejercicio10}
-	when (11) {&Ejercicio11}
-	when (12) {&Ejercicio12}
-	when (13) {&Ejercicio13}
-	when (14) {&Ejercicio14}
-	when (15) {&Ejercicio15}
-	when (16) {&Ejercicio16}
-	when (17) {&Ejercicio17}
-	when (18) {&Ejercicio18}
-	when (19) {&Ejercicio19}
-
-	default {print "Ingrese un numero de ejercicio valido"}
-}

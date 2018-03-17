@@ -13,66 +13,7 @@ our %tablas={};
 #our ($t_cuadrado,$t_triangulo,$t_circulo);#tablas de la base
 
 
-sub crear_tablas
-{
 
-	
-	my $t_cuadrado= "t_cuadrado";
-	$tablas{cuadrado}= $t_cuadrado;
-	$tablas{rectangulo}=$t_cuadrado;
-	my $campos_t_cuadrado=  "id_cuadrado int auto_increment PRIMARY KEY,x1 FLOAT,y1 FLOAT,x2 FLOAT,y2 FLOAT,x3 FLOAT,y3 FLOAT,x4 FLOAT,y4 FLOAT";
-	$dbh->do("create table if not exists $t_cuadrado ($campos_t_cuadrado);") || die "no se pudo crear la tabla";
-
-	my $t_triangulo ="t_triangulo";
-	$tablas{triangulo}= $t_triangulo;
-	my $campos_t_triangulo= "id_triangulo INT auto_increment PRIMARY KEY, x1 FLOAT,y1 FLOAT,x2 FLOAT,y2 FLOAT,x3 FLOAT,y3 FLOAT";
-	$dbh->do("create table if not exists $t_triangulo ($campos_t_triangulo);")|| die "no se pudo crear la tabla de triangulos";
-
-	my $t_circulo = "t_circulo";
-	$tablas{circulo}=$t_circulo;
-	my $campos_t_circulo = "id_circulo INT auto_increment PRIMARY KEY,x1 FLOAT, y1 FLOAT, x2 FLOAT, y2 FLOAT";
-	$dbh->do ("create table if not exists $t_circulo ($campos_t_circulo);")|| die "no se pudo crear la tabla de circulos";
-
-}
-sub insert
-{
-	my $figura = shift;
-	my $class = lc(ref $figura);
-	if ($class eq "rectangulo")
-	{
-		$class= "cuadrado";
-	}
-	my $t_figura= $tablas{$class};
-	my @values = $figura->puntos;
-	my $string = "insert into $t_figura values(0,".join (",",@values).")";
-	print "string: $string\n";
-	$dbh->do($string);#Poner un 0 para el autoincrement
-}
-
-sub persistir
-{
-	my @figuras =@_;
-
-	foreach my  $figura (@figuras)
-	{
-		my $class = ref $figura;
-		print "Guardando un $class\n";
-		insert($figura);
-	}
-}
-
-sub recuperar_todo
-{
-	my $figura = lc (shift);
-	my $t_figura= $tablas{$figura};
-	my $consulta = "select * from $t_figura;";
-	my @listado = $dbh->selectall_array($consulta);
-	foreach my $row (@listado)
-	{
-		@{$row}[0]=$figura;
-	}
-	return (@listado);
-}
 
 
 
@@ -134,3 +75,64 @@ close FH;
 
 
 $dbh->disconnect;
+exit;
+
+############################## F I N   #############################
+sub crear_tablas
+{
+	my $t_cuadrado= "t_cuadrado";
+	$tablas{cuadrado}= $t_cuadrado;
+	$tablas{rectangulo}=$t_cuadrado;
+	my $campos_t_cuadrado=  "id_cuadrado int auto_increment PRIMARY KEY,x1 FLOAT,y1 FLOAT,x2 FLOAT,y2 FLOAT,x3 FLOAT,y3 FLOAT,x4 FLOAT,y4 FLOAT";
+	$dbh->do("create table if not exists $t_cuadrado ($campos_t_cuadrado);") || die "no se pudo crear la tabla";
+
+	my $t_triangulo ="t_triangulo";
+	$tablas{triangulo}= $t_triangulo;
+	my $campos_t_triangulo= "id_triangulo INT auto_increment PRIMARY KEY, x1 FLOAT,y1 FLOAT,x2 FLOAT,y2 FLOAT,x3 FLOAT,y3 FLOAT";
+	$dbh->do("create table if not exists $t_triangulo ($campos_t_triangulo);")|| die "no se pudo crear la tabla de triangulos";
+
+	my $t_circulo = "t_circulo";
+	$tablas{circulo}=$t_circulo;
+	my $campos_t_circulo = "id_circulo INT auto_increment PRIMARY KEY,x1 FLOAT, y1 FLOAT, x2 FLOAT, y2 FLOAT";
+	$dbh->do ("create table if not exists $t_circulo ($campos_t_circulo);")|| die "no se pudo crear la tabla de circulos";
+
+}
+sub insert
+{
+	my $figura = shift;
+	my $class = lc(ref $figura);
+	if ($class eq "rectangulo")
+	{
+		$class= "cuadrado";
+	}
+	my $t_figura= $tablas{$class};
+	my @values = $figura->puntos;
+	my $string = "insert into $t_figura values(0,".join (",",@values).")";
+	print "string: $string\n";
+	$dbh->do($string);#Poner un 0 para el autoincrement
+}
+
+sub persistir
+{
+	my @figuras =@_;
+
+	foreach my  $figura (@figuras)
+	{
+		my $class = ref $figura;
+		print "Guardando un $class\n";
+		insert($figura);
+	}
+}
+
+sub recuperar_todo
+{
+	my $figura = lc (shift);
+	my $t_figura= $tablas{$figura};
+	my $consulta = "select * from $t_figura;";
+	my @listado = $dbh->selectall_array($consulta);
+	foreach my $row (@listado)
+	{
+		@{$row}[0]=$figura;
+	}
+	return (@listado);
+}

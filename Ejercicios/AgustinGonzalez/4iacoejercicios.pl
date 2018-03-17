@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use Lingua::EN::Words2Nums;
+use Lingua::EN::Words2Nums;##Modulo que traduce valores escritos en palabras en numeros
 
 my $path = shift;
 

@@ -1,6 +1,39 @@
 #!/usr/bin/perl
 use v5.14;
+
+
 my %hash;
+my $path = shift;
+
+open (FH, "<".$path)||die "no existe el archivo";
+
+my $primeralinea = <FH>;
+chomp ($primeralinea);
+
+my $origen;
+my $destino;
+
+($origen,$destino) = &separarcamino($primeralinea);
+
+print "Origen:$origen\nDestino:$destino\n";
+
+
+while (my $line=<FH>)##Cargar el grafo de nodos
+{
+	chomp($line);
+	($a,$b)= &separarcamino($line);
+	if (!$hash{$a})
+	{
+		$hash{$a => []};
+	}
+	push (@{$hash{$a}},$b);
+}
+
+
+
+print &caminocorto($origen,$destino)."\n";
+
+
 
 sub contiene
 {
@@ -75,32 +108,4 @@ sub separarcamino
 	#print "Separando linea:$linea en camino $1->$2\n";
 	return ($1,$2);
 }
-my $path = shift;
 
-open (FH, "<".$path)||die "no existe el archivo";
-
-my $primeralinea = <FH>;
-chomp ($primeralinea);
-
-my $origen;
-my $destino;
-
-($origen,$destino) = &separarcamino($primeralinea);
-
-print "Origen:$origen\nDestino:$destino\n";
-
-
-while (my $line=<FH>)
-{
-	chomp($line);
-	($a,$b)= &separarcamino($line);
-	if (!$hash{$a})
-	{
-		$hash{$a => []};
-	}
-	push (@{$hash{$a}},$b);
-}
-
-
-
-print &caminocorto($origen,$destino)."\n";
