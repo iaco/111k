@@ -25,7 +25,9 @@ given ($seleccion)
 	when (14) {&Ejercicio14}
 	when (15) {&Ejercicio15}
 	when (16) {&Ejercicio16}
-	when (17) {&Ejercicio17}
+	when (17) {
+        my $path = shift;
+        &Ejercicio17($path)}
 	when (18) {&Ejercicio18}
 	when (19) {&Ejercicio19}
 
@@ -42,7 +44,7 @@ sub Circunferencia
 	{
 		return (0);
 	}
-	my $circunferencia=2*$radio*$PI;
+	my $circunferencia=2*$radio*PI;
 	return ($circunferencia);
 }
 
@@ -423,9 +425,78 @@ sub Ejercicio17
 	#para ordenar la lista según el dominio, y dentro de un mismo dominio, ordene las direcciones
 	#alfabéticamente por el nombre de buzón/usuario.
 	my $path = shift;
-	open (FILE, $path);
+	my $fh_direcciones;
+	open ($fh_direcciones, $path);
+	my %direcciones; ##Direcciones por dominio
+	while ( my $line = <$fh_direcciones>) {
+        chomp($line);
+		my ($direccion, $dominio) = &separar_correo($line);
+	   if (!exists $direcciones{$dominio})
+       {
+        $direcciones{$dominio} = ();
+       }
+       push (@{$direcciones{$dominio}}, $direccion);
+	}
+    foreach my $key (sort keys %direcciones)
+    {
+        print "Direcciones con dominio $key:\n";
+        print join ("\n",sort @{$direcciones{$key}})."\n";
+    }
 
 
+    close ($fh_direcciones);
 }
 
+sub separar_correo
+{
+	my $entrada=shift;
+	my $direccion;
+	my $dominio;
+	$entrada =~ m/(.+)@(.+)/;
+	$direccion = $1;
+	$dominio = $2;
+	return ($direccion, $dominio);
+}
 
+sub Ejercicio19
+{
+# 19. Escriba un programa que le pregunte repetidamente al usuario sobre un
+# número entero secreto desde 1 a 100 (pseudo-aleatorio) hasta que el usuario lo adivine.
+# Si el usuario no adivina el número, el programa debe responder: "Muy arriba" o "Muy abajo".
+# Si el usuario introduce las cadenas “salir”, “abandonar”, o una línea en
+# blanco, el programa debe terminar.
+    my $rand = rand;
+    my $incognita = int $rand*100;
+    
+
+    print "Ingrese un numero del 1 al 100 para adivinar, salir o abandonar para rendirse\n";
+    my $entrada = <STDIN>;
+    chomp($entrada);
+    while (($entrada ne "salir")&&($entrada ne "abandonar"))
+    {
+        if ($entrada=~ m/D/)
+        {
+            print "ingrese numeros por favor\n";
+            next;
+        }
+        if ($entrada == $incognita)
+        {
+            print "Felicitaciones!!!! era $incognita, ha acertado\n";
+            exit;
+        }
+        if ($entrada > $incognita)
+        {
+            print "Demasiado alto, intentelo de nuevo\n";
+            chomp($entrada=<STDIN>);
+            next;
+        }
+        if ($entrada < $incognita)
+        {
+            print "Demasiado bajo, intentelo de nuevo\n";
+            chomp($entrada=<STDIN>);
+            next;
+        }
+
+    }
+
+}
