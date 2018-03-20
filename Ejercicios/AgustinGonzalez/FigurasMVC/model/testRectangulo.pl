@@ -2,16 +2,14 @@
 use lib "./";
 use Rectangulo;
 use Triangulo;
+use Circulo;
 use Punto;
 
 my $punto_loco = new Punto(x=>0,y=>0);
-my $rectangulo = new Rectangulo(
-	vertice1=>$punto_loco,
-	vertice2=>new Punto(x=>100,y=>0),
-	vertice3=>new Punto(x=>0,y=>150),
-	vertice4=>new Punto(x=>100,y=>150));
+my $rectangulo = new Rectangulo(x1=>0,y1=>0,x2=>100,y2=>0,x3=>0,y3=>150,x4=>100,y4=>150);
 my $area = $rectangulo->area();
 print "El area es $area\n";
+$rectangulo->insert;
 $punto_loco->x(800);
 
 $rectangulo->{vertice1};
@@ -29,13 +27,18 @@ my $blue = $img->colorAllocate(0,0,255);
 $rectangulo->draw($img);
 
 
-my $triangulo= new Triangulo(
-	vertice1=>new Punto(x=>300,y=>100),
-	vertice2=>new Punto(x=>600,y=>100),
-	vertice3=>new Punto(x=>450,y=>100+150*sqrt(3)));
+my $triangulo= new Triangulo(x1=>300,y1=>100,x2=>600,y2=>100,x3=>450,y3=>100+150*sqrt(3));
+
 my $area_triangulo = $triangulo->area;
 print "el area del triangulo es $area_triangulo\n";
 $triangulo->draw($img);
+$triangulo->insert;
+
+my $circulo = new Circulo(x1=>300,y1=>300,x2=>600,y2=>300) ||die "no se creo el circulo";
+my $area_circulo = $circulo->area;
+print "el area del circulo es $area_circulo\n";
+$circulo->draw($img);
+$circulo->insert;
 
 
 print $fh_png $img->png;

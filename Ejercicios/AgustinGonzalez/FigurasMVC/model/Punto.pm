@@ -3,14 +3,14 @@ package Punto;
 
 use Moose;
 
-has "x" =>(is =>"rw", isa=>"Num", default=>0, reader=>"get_x");
+has "x" =>(is =>"rw", isa=>"Num", default=>0);
 has "y" =>(is =>'rw', isa=>"Num", default=>0);
 
 
 sub distancia #Distancia a otro punto
 {
 	my ($self,$other)=@_;
-	my $difx = $self->x() - $other->x();
+	my $difx = $self->x - $other->x;
 	my $dify= $self->y() - $other->y();
 	$difx= $difx **2;
 	$dify=$dify **2;
