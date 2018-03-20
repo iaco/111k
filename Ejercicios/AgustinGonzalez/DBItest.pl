@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use lib "/home/agustin/perl";
+use lib "./lib";
 use DBI;
 use Figura;
 use Rectangulo;
@@ -13,11 +13,6 @@ our %tablas={};
 #our ($t_cuadrado,$t_triangulo,$t_circulo);#tablas de la base
 
 
-
-
-
-
-######################################################################################################################
 $dbh =  DBI->connect("DBI:mysql:figuras:localhost", "root", "root") || die "No se pudo conectar a la base de datos\n";
 
 my $img =  new  GD::Image(800,600);
@@ -35,7 +30,8 @@ my $blue = $img->colorAllocate(0,0,255);
 #			new Rectangulo(10,25,10,40,50,25,50,40), 
 #			new Rectangulo(30,20,30,40,50,20,50,40));
 #persistir (@lista);
-my $tipo_figura="cuadrado";
+print "ingrese que tipo de figura que quiere recuperar: rectangulo|cuadrado,triangulo,circulo\n";
+my $tipo_figura= <STDIN>;
 my (@cuadrados) = (&recuperar_todo($tipo_figura));
 print "Se encontraron los siguientes $tipo_figura"."s\n";
 

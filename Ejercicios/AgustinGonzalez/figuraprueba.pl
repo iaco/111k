@@ -1,8 +1,12 @@
 #!/usr/bin/perl
 ## Recive un path y crea un archivo png donde pone las figuras
 
-use lib "/home/agustin/perl";
+use lib "./lib";
 use Figura;
+use Rectangulo;
+use Circulo;
+use Triangulo;
+use Punto;
 require Figura;
 use GD;
 
@@ -28,23 +32,31 @@ my $areaT = $triangulo->area;
 print "El area del triangulo es: $areaT\n";
 $img = $triangulo->draw($img);
 
-my $circulo = new Circulo(300,500,400,300);
+
+##CREACION CIRCULO TEST
+my $centro = new Punto(x=>300,y=>500);
+my $puntoex = new Punto(x=>400,y=>300);
+my $circulo = new Circulo($centro,$puntoex);
 
 my $areaC = $circulo->area;
 
 print "El area del circulo es: $areaC\n";
 
 $img=$circulo->draw($img);
+$centro->x(666);
+my $centroget = $circulo->centro;
+$puntoex = $circulo->puntoexterior;
+my ($x,$y)=$centroget->puntos;
+print	"el centro del circulo esta en ($x,$y)\n";
+($x,$y)=$puntoex->puntos;
+print	"el punto exterior del circulo esta en ($x,$y)\n";
+my $punto_nuevo_centro = new Punto (x=>600,y=>0);
+$circulo->centro($punto_nuevo_centro);
+($x,$y) = ($circulo->centro)->puntos;
+print	"el centro del circulo esta en ($x,$y)\n";
+($x,$y)= $circulo->puntoexterior->puntos;
 
-my @test = ($circulo->centro);
-my @puntoext = $circulo->punto;
-print	"el centro del circulo esta en ($test[0],$test[1])\n";
-print	"el punto exterior del circulo esta en ($puntoext[0],$puntoext[1])\n";
-$circulo->centro(600,0);
-@test = ($circulo->centro);
-@puntoext = $circulo->punto;
-print	"el centro del circulo esta en ($test[0],$test[1])\n";
-print	"el punto exterior del circulo esta en ($puntoext[0],$puntoext[1])\n";
+print	"el punto exterior del circulo esta en ($x,$y)\n";
 $img = $circulo->draw($img);
 
 print FH $img->png;
