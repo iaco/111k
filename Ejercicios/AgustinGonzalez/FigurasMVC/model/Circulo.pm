@@ -51,13 +51,15 @@ sub puntoexterior
   		$self->{puntoexterior}= new Punto(x=>$self->{x2},y=>$self->{y2});
   	}
   	return new Punto(x=> $self->{puntoexterior}->x(),y=>$self->{puntoexterior}->y());
+
  }
 sub puntos
 {
 	#Devuelve los puntos para poder persistirlo y volver a construirlo
 	my $self =shift;
-	my @puntos = ($self->centro->puntos,$self->punto->puntos);
-	return  @puntos;
+	#my @puntos = ($self->centro->puntos,$self->punto->puntos);
+  return ($self->{x1},$self->{y1},$self->{x2},$self->{y2});
+	#return  @puntos;
 }
 sub area 
 {
@@ -79,7 +81,7 @@ sub draw
  {
  	my $table_name="t_circulo";
  	 my @fields = qw(
-         id_circulo
+         id
          x1
          y1
          x2
@@ -87,7 +89,7 @@ sub draw
      );
 
      my %fields = (
-         id_circulo => { pk => 1, read_only => 1 },
+         id => { pk => 1, read_only => 1 },
      );
 
      return [ \@fields, \%fields, $table_name ];

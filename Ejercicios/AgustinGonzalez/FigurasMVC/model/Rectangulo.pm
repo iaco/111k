@@ -26,7 +26,7 @@ sub _fields
 {
 	my $table_name="t_cuadrado";
 	 my @fields = qw(
-     id_cuadrado
+     id
      x1
      y1
      x2
@@ -38,7 +38,7 @@ sub _fields
  );
 
  my %fields = (
-     id_cuadrado => { pk => 1, read_only => 1 },
+     id => { pk => 1, read_only => 1 },
  );
 
  return [ \@fields, \%fields, $table_name ];
@@ -62,13 +62,14 @@ sub puntos
 {
     #Otorga los puntos que componen el rectangulo para poder persistirlo
 	my $self=shift;
-	my @puntos= (
-		new Punto(x=>$self->vertice1->x, y=> $self->vertice1->y),
-		new Punto(x=>$self->vertice2->x, y=> $self->vertice2->y),
-		new Punto(x=>$self->vertice3->x, y=> $self->vertice3->y),
-		new Punto(x=>$self->vertice4->x, y=> $self->vertice4->y)
-				);
-	return @puntos;
+	#my @puntos= (
+	#	new Punto(x=>$self->vertice1->x, y=> $self->vertice1->y),
+	#	new Punto(x=>$self->vertice2->x, y=> $self->vertice2->y),
+	#	new Punto(x=>$self->vertice3->x, y=> $self->vertice3->y),
+	#	new Punto(x=>$self->vertice4->x, y=> $self->vertice4->y)
+	#			);
+	#return @puntos;
+	return ($self->{x1},$self->{y1},$self->{x2},$self->{y2},$self->{x3},$self->{y3},$self->{x4},$self->{y4});
 }
 
 sub area

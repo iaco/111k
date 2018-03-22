@@ -23,7 +23,7 @@ sub _fields
 {
 	my $table_name="t_triangulo";
 	 my @fields = qw(
-     id_triangulo
+     id
      x1
      y1
      x2
@@ -33,7 +33,7 @@ sub _fields
  );
 
  my %fields = (
-     id_triangulo => { pk => 1, read_only => 1 },
+     id => { pk => 1, read_only => 1 },
  );
 
  return [ \@fields, \%fields, $table_name ];
@@ -55,12 +55,7 @@ sub _fields
 sub puntos
 {
 	my $self = shift;
-	my @puntos = (
-			new Punto ( x=> $self->vertice1->x, y=> $self->vertice1->y),
-			new Punto ( x=> $self->vertice2->x, y=> $self->vertice2->y),
-			new Punto ( x=> $self->vertice3->x, y=> $self->vertice3->y)
-		);
-	return @puntos;
+	return ($self->{x1},$self->{y1},$self->{x2},$self->{y2},$self->{x3},$self->{y3});
 }
 
 sub area
