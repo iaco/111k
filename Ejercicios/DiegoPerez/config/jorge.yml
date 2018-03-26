@@ -1,0 +1,6 @@
+    database:
+        host: localhost
+        db: Figuras
+        user: root
+        password: diego
+
