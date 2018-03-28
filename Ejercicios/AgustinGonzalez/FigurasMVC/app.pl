@@ -1,4 +1,4 @@
-#!/user/bin/perl
+#!/usr/bin/perl
 use lib "./view";
 use lib "./model";
 use lib "./controller";

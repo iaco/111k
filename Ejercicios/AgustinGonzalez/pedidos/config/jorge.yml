@@ -1,0 +1,5 @@
+    database:
+        host: localhost
+        db: Pedidos
+        user: root
+        password: root
