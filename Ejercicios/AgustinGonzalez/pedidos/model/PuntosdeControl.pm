@@ -1,15 +1,15 @@
 #!/usr/bin/perl
 
-package Itinerarios;
+package PuntosdeControl;
 use Moose;
 extends "Jorge::ObjectCollection";
 
-use Itinerario;
+use PuntodeControl;
 
 
 sub create_object
 {
-    return new Itinerario;
+    return new PuntodeControl;
 }
 
 1;

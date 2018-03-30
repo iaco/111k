@@ -1,0 +1,15 @@
+A,jjlopez,López,Juan José
+C,jjlopez,50012,Figuras coleccionables de Star Wars,3
+D,50012,1,Figura de Darth Vader,Indianapolis­USA
+D,50012,2,Figura Yoda,Miami­USA
+C,jjlopez,70024,eBook,1
+D,50012,3,Figura Luke,Atlanta(USA)
+P,50012,1,Miami/USA,Envio Aéreo ­ FedEx
+Y,50012
+R,50012,2,Caballito.J.M.Moreno 200
+R,50012,1,Caballito.J.M.Moreno 200
+R,50012,3,Caballito.J.M.Moreno 200
+Y,50012
+Z,50012
+Z,50013
+E,jjlopez
