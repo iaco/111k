@@ -10,55 +10,26 @@ use PuntosdeControl;
 use Moose;
 use DateTime;
 use Presentacion;
+use DbHandler;
 
 has "presentacion"=>(is=>"rw",isa=>"Presentacion");
+has "db" =>(is=>"ro", isa=>"DbHandler", default=> sub {new DbHandler});
 
 sub _get_usr
 {
-    my $usr=shift;
-    my $nuevo= new Usuario(usuario=>$usr);
-    $nuevo->get_by("usuario");
-    if (not $nuevo->id)
-    {
-        return 0;#El usuario no existe
-    }
-    else 
-    {
-        return $nuevo;
-    }
+    my ($self,$usr)=@_;
+    return $self->{db}->get_usr($usr);
 }
 
 sub get_pedido
 {
-    my $pedido=shift;
-    my $nuevo= new Pedido(num_pedido=>$pedido);
-    $nuevo->get_by("num_pedido");
-    if (not $nuevo->id)
-    {
-        return 0;#El PEDIDO no existe
-    }
-    else 
-    {
-        return $nuevo;
-    }
+    my ($self,$num_pedido)=@_;
+    return $self->{db}->get_pedido($num_pedido);
 }
 sub _get_paquete
 {
-    my ($num_pedido,$num_paquete)=@_;;
-    my $nuevo= new Paquete(num_pedido=>$num_pedido,num_paquete=>$num_paquete);
-    $nuevo->get_by(qw(num_pedido num_paquete));
-    if (not $nuevo->id)
-    {
-        return 0;#El paquete no existe
-    }
-    else 
-    {
-        my $paquete= new Paquete;
-        $paquete->get_from_db($nuevo->id);
-        #print "paquete encontrado\n";
-        #print "    " . $paquete->num_paquete . ": " . $paquete->contenido . " - " . $paquete->ubicacion . "\n";
-        return $paquete;
-    }
+    my ($self,$num_pedido,$num_paquete)=@_;
+    return $self->{db}->get_paquete($num_pedido,$num_paquete);
 }
 
 sub agregar_usuario
@@ -85,7 +56,7 @@ sub eliminar_usuario
 #CODIGO E
 {
     my ($self,$usr)=@_;
-    my $usuario = _get_usr($usr);
+    my $usuario = $self->_get_usr($usr);
     if (not($usuario))
     {
         print STDERR "El Usuario $usr no estaba registrado\n";
@@ -101,15 +72,15 @@ sub registrar_compra
 {
     my ($self,$usr,$num_pedido,$detalle,$cant_paquetes)=@_;
     #Primero, ver que el usuario exista
-    my $usuario = _get_usr($usr);
+    my $usuario = $self->_get_usr($usr);
     if (not($usuario))
     {
         print STDERR "El Usuario $usr no estaba registrado";
         return 0;
     }
-    #FALTA CHECKEAR QUE NO EXISTA UN PAQUETE CON ESE NUMERO
+    
     my $datetime= DateTime->now();
-    my $pedido= get_pedido($num_pedido);
+    my $pedido= $self->get_pedido($num_pedido);
     if ($pedido)
     {
         print STDERR "EL pedido $num_pedido ya existe\n";
@@ -130,7 +101,7 @@ sub despacho_paquete
     #asume el valor de ‘Enviado’
     #CODIGO D
     my ($self,$num_pedido,$num_paquete,$descripcion,$ubicacion)=@_;
-    my $pedido= get_pedido($num_pedido);
+    my $pedido= $self->get_pedido($num_pedido);
     if (not($pedido))
     {
         print STDERR "El pedido $num_pedido no esta cargado\n";
@@ -149,7 +120,7 @@ sub posta_paquete
 
     my ($self,$num_pedido,$num_paquete,$ubicacion,$descripcion)=@_;
     my $fecha= DateTime->now();
-    my $paquete= _get_paquete($num_pedido,$num_paquete);
+    my $paquete= $self->_get_paquete($num_pedido,$num_paquete);
     if (not $paquete)
     {
         print STDERR "El paquete " . $num_pedido . "/" .$num_paquete . "no esta cargado\n";
@@ -172,7 +143,7 @@ sub recepcion_paquete
     my ($self,$num_pedido,$num_paquete,$ubicacion)=@_;
     
     my $fecha= DateTime->now();
-    my $paquete= _get_paquete($num_pedido,$num_paquete);
+    my $paquete= $self->_get_paquete($num_pedido,$num_paquete);
     if (not $paquete)
     {
         print STDERR "El paquete " . $num_pedido . "/" .$num_paquete . "no esta cargado\n";
@@ -191,14 +162,14 @@ sub estado_pedido
     #​Debe retornar el estado actual de un pedido dado.
     #Codigo Y
     my ($self,$num_pedido)=@_;
-    my $pedido = get_pedido($num_pedido);
+    my $pedido = $self->get_pedido($num_pedido);
     if (not $pedido)
     {
         print STDERR "No hay un pedido con el numero $num_pedido\n";
         return 0;
     }
     print "==========\n";
-    my $usuario = _get_usr($pedido->usuario);
+    my $usuario = $self->_get_usr($pedido->usuario);
     my $presentacion=$self->presentacion;
     $presentacion->imprimir_pedido($pedido,$usuario);
     
@@ -218,13 +189,13 @@ sub itinerario_pedido
     #Código:​Z
 
     my ($self, $num_pedido)=@_;
-    my $pedido = get_pedido($num_pedido);
+    my $pedido = $self->get_pedido($num_pedido);
     if (not $pedido)
     {
         print STDERR "No hay un pedido con el numero $num_pedido\n";
         return 0;
     }
-    my $usuario = _get_usr($pedido->usuario);
+    my $usuario = $self->_get_usr($pedido->usuario);
     print "==========\n";
     my $presentacion =$self->presentacion;
     $presentacion->imprimir_pedido($pedido,$usuario);
