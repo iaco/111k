@@ -4,6 +4,7 @@ package Interprete;
 use lib "./../model";
 use lib "./../view";
 use Usuarios;
+use Paquete;
 use Paquetes;
 use Pedidos;
 use PuntosdeControl;

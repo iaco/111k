@@ -102,7 +102,7 @@ sub add_paquete
 	
 	$paquete->insert;
 	#añado la primer posta
-	$paquete->add_punto_control($ubicacion,$descripcion,$dateTime);
+	$paquete->add_punto_control($ubicacion,"Enviado",$dateTime);
 
 	return 1;
 }

@@ -40,11 +40,22 @@ sub imprimir_itinerario_paquete
     my ($self,$paquete)=@_;
     
     my $ruta= $paquete->get_itinerario;
+    #$ruta=sort _compare_fechas $ruta;
+    print "Ruta: ";
     while (my $posta =$ruta->get_next)
     {
-        print $posta->descripcion . " - " . $posta->ubicacion . "(" . $posta->fecha . "), ";
+        print  " - " . $posta->ubicacion . "(" . $posta->fecha . ")," . $posta->descripcion . " ";
     }
     print "\n";
 
+}
+
+sub _compare_fechas
+{
+    my ($punto1, $punto2)=@_;
+    my $fecha1= $punto1->fecha;
+    my $fecha2= $punto2->fecha;
+    print "Comparando fechas $fecha1 - $fecha2\n";
+    return DateTime->compare($fecha1,$fecha2);
 }
 1;
