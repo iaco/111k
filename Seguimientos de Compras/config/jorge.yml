@@ -1,0 +1,6 @@
+    database:
+        host: localhost
+        db: Compras
+        user: root
+        password: diego
+
