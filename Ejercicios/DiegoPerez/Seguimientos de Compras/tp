@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+
+use lib "./";
+use lib "./Model/";
+use lib "./Controller/";
+use GestEvent;
+use strict;
+use warnings;
+
+
+chomp(my $entrada = <STDIN>);
+my @entrada = split(",",$entrada);
+
+my $gestor = new GestEvent;
+
+
+if (($entrada[0] eq 'A') && (($#entrada+1) == 4)) {
+    $gestor->addUsuario($entrada[1],$entrada[2],$entrada[3]);
+    
+} elsif (($entrada[0] eq 'E') && (($#entrada+1) == 2)){
+    $gestor->elimUsuario($entrada[1]);
+
+} elsif (($entrada[0] eq 'C') && (($#entrada+1) == 5)){
+    $gestor->addPedido($entrada[1],$entrada[2],$entrada[3],$entrada[4]);
+
+} elsif (($entrada[0] eq 'D') && (($#entrada+1) == 6)){
+    $gestor->despacho_paquete($entrada[1],$entrada[2],$entrada[3],$entrada[4],$entrada[5]);
+
+} elsif (($entrada[0] eq 'P') && (($#entrada+1) == 6)){
+    $gestor->posta_paquete($entrada[1],$entrada[2],$entrada[3],$entrada[4],$entrada[5]);
+
+} elsif (($entrada[0] eq 'R') && (($#entrada+1) == 5)){
+    $gestor->recepcion_paquete($entrada[1],$entrada[2],$entrada[3],$entrada[4]);
+} elsif (($entrada[0] eq 'Y') && (($#entrada+1) == 2)){
+    $gestor->estado_pedido($entrada[1]);
+
+} elsif (($entrada[0] eq 'Z') && (($#entrada+1) == 2)){
+    $gestor->itinerario_pedido($entrada[1]);
+    
+}else {
+    print "comando o cantidad de parametros incorrecta"
+}
