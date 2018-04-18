@@ -1,0 +1,39 @@
+
+<table border="1">
+<tr>
+    <th>NOMBRE</th>
+    <th>APELLIDO</th>
+    <th>DIRECCION</th>
+    <th>Fecha_Nacimiento</th>
+    <th>EDAD</th>
+    <th>ACCIONES</th>
+</tr>
+
+<TMPL_LOOP ROWS>
+<tr>
+<form action="modificar_persona.pl" METHOD="POST">
+<input type="hidden" name="id" readonly="1" value="<TMPL_VAR NAME=ID>">
+<td><input name="nombre" value="<TMPL_VAR NAME=NOMBRE>"></td>
+<td><input name="apellido" value="<TMPL_VAR NAME=APELLIDO>"></td>
+<td><input type="text" name="direccion" value="<TMPL_VAR NAME=DIRECCION>"> </td>
+<td><input type="date" name="nacimiento" value="<TMPL_VAR NAME=NACIMIENTO>"></td>
+<td><TMPL_VAR NAME=EDAD></td>
+<td><input type="submit" value="Modificar">
+    <input type="submit" value="Eliminar" formaction="eliminar_persona.pl">
+    </td>
+</form>
+</tr> 
+</TMPL_LOOP>
+<tr>
+<form action="agregar_persona.pl" METHOD="POST">
+    <td><input type="text" NAME="nombre"></td>
+    <td><input type="text" NAME="apellido"></td>
+    <td><input type="text" name="direccion"></td>
+    <td><input type="date" name="nacimiento"></td>
+    <td>edad</td>                        
+    <td><input type="submit" value="Agregar"></td>
+</form>
+</tr>
+</table>
+
+
