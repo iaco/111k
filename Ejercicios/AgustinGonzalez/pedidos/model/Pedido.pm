@@ -108,13 +108,13 @@ sub add_paquete
 }
 
 
-sub before_delete
-{
-	my $self=shift;
-	my $paquetes= $self->get_paquetes;
-	while (my $paquete = $paquetes->get_next)
-	{
-		$paquete->delete;
-	}
-}
+#sub before_delete
+#{
+#	my $self=shift;
+#	my $paquetes= $self->get_paquetes;
+#	while (my $paquete = $paquetes->get_next)
+#	{
+#		$paquete->delete;
+#	}
+#}
 1;

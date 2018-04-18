@@ -1,0 +1,37 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AltaBajaModif	web/model/AltaBajaModif.pm	2;"	p
+DBHandler	web/model/DBHandler.pm	3;"	p
+Interprete	web/controller/Interprete.pm	2;"	p
+Persona	web/model/Persona.pm	2;"	p
+Personas	web/model/Personas.pm	3;"	p
+_fields	web/model/Persona.pm	46;"	s
+_get_by_id	web/model/DBHandler.pm	33;"	s
+agregar_persona	web/controller/Interprete.pm	13;"	s
+agregar_persona	web/model/AltaBajaModif.pm	10;"	s
+agregar_persona	web/model/DBHandler.pm	66;"	s
+cargar	web/prueba.pl	23;"	s
+cierre	web/cgi-bin/index.pl	41;"	s
+create_object	web/model/Personas.pm	9;"	s
+delete	web/model/DBHandler.pm	18;"	s
+edad	web/model/Persona.pm	17;"	s
+eliminar_persona	web/controller/Interprete.pm	41;"	s
+eliminar_persona	web/model/AltaBajaModif.pm	25;"	s
+encabezado	web/cgi-bin/index.pl	26;"	s
+get_all	web/model/DBHandler.pm	9;"	s
+get_lista	web/controller/Interprete.pm	20;"	s
+listar	web/prueba.pl	31;"	s
+listar_personas	web/model/AltaBajaModif.pm	40;"	s
+modificar	web/model/DBHandler.pm	46;"	s
+modificar_persona	web/controller/Interprete.pm	49;"	s
+modificar_persona	web/model/AltaBajaModif.pm	53;"	s
+parse_form_data	web/cgi-bin/agregar_persona.pl	56;"	s
+parse_form_data	web/cgi-bin/eliminar_persona.pl	45;"	s
+parse_form_data	web/cgi-bin/modificar_persona.pl	52;"	s
+return_error	web/cgi-bin/agregar_persona.pl	84;"	s
+return_error	web/cgi-bin/eliminar_persona.pl	73;"	s
+return_error	web/cgi-bin/modificar_persona.pl	80;"	s

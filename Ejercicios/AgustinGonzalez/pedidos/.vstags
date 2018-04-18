@@ -26,9 +26,6 @@ add_paquete	model/Pedido.pm	86;"	s
 add_pedido	model/Usuario.pm	13;"	s
 add_punto_control	model/Paquete.pm	43;"	s
 agregar_usuario	controller/Interprete.pm	36;"	s
-before_delete	model/Paquete.pm	67;"	s
-before_delete	model/Pedido.pm	111;"	s
-before_delete	model/Usuario.pm	44;"	s
 create_object	model/Paquetes.pm	10;"	s
 create_object	model/Pedidos.pm	10;"	s
 create_object	model/PuntosdeControl.pm	10;"	s

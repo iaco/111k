@@ -1,0 +1,61 @@
+<!DOCTYPE  html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>..::Listado de personas:..</title>
+        <link rel="stylesheet" type="text/css" href="CSS/Styles.css">
+
+    </head>
+    <body>
+        <div class="container">
+            <h1>Web ABM personas</h1>
+            <form action="cgi-bin/index.pl" method="get">Actualizar
+            <input type="submit" value="Modificar"></form>
+            <table style="width:100%">
+                <caption>Personas almacenadas actualmente</caption>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Direccion</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Edad</th>
+                    <th>Acciones</th>
+                    
+                </tr>
+                <tr>
+                    <td> Id1</td>
+                    <td> Nombre1</td>
+                    <td> Apellido1</td>
+                    <td> Direccion1</td>
+                    <td> Fecha Nac1</td>
+                    <td> Edad1</td>
+                    <th><button type="button">Modificar</button> <button type="button">Eliminar</button></th>
+                </tr>
+                <tr>
+                    <form action= "modificar_persona">
+                        <td>id</td>
+                        <td><input class="input_text" type="text" name="nombre"></td>
+                        <td><input class="input_text" type="text" name="apellido"></td>
+                        <td><input class="input_text" type="text" name="direccion"></td>
+                        <td><input class="input_text" type="text" name="nacimiento"></td>
+                        <td>edad</td>                        
+                        <th><input type="submit" value="Modificar"></button> <button type="button">Eliminar</button></th>
+                    </form>
+                </tr>
+                <tr>
+                <form action="Agregar_persona">
+                    <td>Nuevo</td>
+                    <td><input class="input_text" type="text" name="nombre"></td>
+                    <td><input class="input_text" type="text" name="apellido"></td>
+                    <td><input class="input_text" type="text" name="direccion"></td>
+                    <td><input class="input_text" type="text" name="nacimiento"></td>
+                    <td>edad</td>                        
+                    <th><input type="submit" value="Agregar"></th>
+                </form>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

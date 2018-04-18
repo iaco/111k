@@ -64,13 +64,13 @@ sub marcar_recibido
 	return 1;
 }
 
-sub before_delete
-{
-	my $self=shift;
-	my $itinerario= $self->get_itinerario;
-	while (my $punto = $itinerario->get_next)
-	{
-		$punto->delete;
-	}
-}
+#sub before_delete
+#{
+#	my $self=shift;
+#	my $itinerario= $self->get_itinerario;
+#	while (my $punto = $itinerario->get_next)
+#	{
+#		$punto->delete;
+#	}
+#}
 1;

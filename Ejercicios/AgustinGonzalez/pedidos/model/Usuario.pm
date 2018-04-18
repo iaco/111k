@@ -41,14 +41,14 @@ sub get_pedidos
 	return $retorno;
 }
 
-sub before_delete
-{
-	my $self=shift;
-	my $pedidos = $self->get_pedidos;
-	while (my $pedido = $pedidos->get_next)
-	{
-		$pedido->delete;
-	}
-}
+#sub before_delete
+#{
+#	my $self=shift;
+#	my $pedidos = $self->get_pedidos;
+#	while (my $pedido = $pedidos->get_next)
+#	{
+#		$pedido->delete;
+#	}
+#}
 
 1;
