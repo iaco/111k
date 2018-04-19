@@ -13,9 +13,9 @@ my @personas = $servidor->get_lista;
 
 $template->param(ROWS => \@personas);
 
-#print "Content-type: text/html\n\n";
-#print &encabezado;
-print $cgi->header(-charset    => 'utf-8');
+print "Content-type: text/html\n\n";
+print &encabezado;
+
 print $template->output;
 #print &cierre;
 
