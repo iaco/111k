@@ -30,8 +30,8 @@ modificar	web/model/DBHandler.pm	46;"	s
 modificar_persona	web/controller/Interprete.pm	49;"	s
 modificar_persona	web/model/AltaBajaModif.pm	53;"	s
 parse_form_data	web/cgi-bin/agregar_persona.pl	56;"	s
-parse_form_data	web/cgi-bin/eliminar_persona.pl	45;"	s
+parse_form_data	web/cgi-bin/eliminar_persona.pl	44;"	s
 parse_form_data	web/cgi-bin/modificar_persona.pl	52;"	s
 return_error	web/cgi-bin/agregar_persona.pl	84;"	s
-return_error	web/cgi-bin/eliminar_persona.pl	73;"	s
+return_error	web/cgi-bin/eliminar_persona.pl	72;"	s
 return_error	web/cgi-bin/modificar_persona.pl	80;"	s
