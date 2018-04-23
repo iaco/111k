@@ -28,7 +28,7 @@ sub get_lista
         my $id= $persona->id;
         my $md5= $persona->encodeMd5("id");
         $self->{diccionario}->{$md5}=$id;
-        push (@salida, {id=>$id,                        #MD5
+        push (@salida, {id=>$md5,                        #MD5
                         nombre=>$persona->nombre,
                         apellido=>$persona->apellido,
                         direccion=>$persona->direccion,
@@ -41,17 +41,16 @@ sub get_lista
 sub eliminar_persona
 {
     my ($self, $md5)=@_;
-    #my $id = $self->{diccionario}->{$md5};             #MD5
-    my $id=$md5;
+    my $id = $self->{diccionario}->{$md5};            
     $self->abm->eliminar_persona($id);
     
 }
 sub modificar_persona
 {
     my ($self, $md5, $nombre, $apellido, $direccion,$fecha)=@_;
-    #my $id=$self->{diccionario}->{$md5};                   #MD5
+    my $id=$self->{diccionario}->{$md5};                   
     my $fecha_tiny = Date::Tiny->from_string($fecha);
-    my $id=$md5;
+    
     $self->abm->modificar_persona($id,$nombre,$apellido,$direccion,$fecha_tiny);
 }
 1;

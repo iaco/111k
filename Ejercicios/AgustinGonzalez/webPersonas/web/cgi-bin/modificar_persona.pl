@@ -2,12 +2,14 @@
 use lib "./../controller";
 use Interprete;
 use CGI;
-my $servidor= new Interprete;
-my $cgi= new CGI;
+use CGI::Session;
 
-&parse_form_data(*simple_form);
+my $cgi = new CGI;
+my $session = new CGI::Session;
 
-print  "Content-type: text/html", "\n\n";
+my $servidor = $session->param('interprete');
+
+
 
 my $id= $cgi->param("id");
 my $nombre= $cgi->param("nombre");
@@ -15,14 +17,10 @@ my $apellido= $cgi->param("apellido");
 my $direccion= $cgi->param("direccion");
 my $nacimiento= $cgi->param("nacimiento");
 
-#$id =$simple_form{"id"};
-#$nombre= $simple_form{"nombre"};
-#$apellido= $simple_form{'apellido'};
-#$direccion= $simple_form{'direccion'};
-#$fecha_nacimiento=$simple_form{'nacimiento'};
 
 my $funciono =$servidor->modificar_persona($id,$nombre,$apellido,$direccion,$nacimiento);
 
+print $cgi->redirect( 'http://personas.com/cgi-bin/index.pl');
 #print $cgi->header(-charset    => 'utf-8');
 print '<html>
     <head>

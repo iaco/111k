@@ -2,12 +2,15 @@
 use lib "./../controller";
 use Interprete;
 use CGI;
+use CGI::Session;
 
-my $servidor= new Interprete;
+my $session= new CGI::Session;
 
-#&parse_form_data(*simple_form);
+my $servidor = $session->param('interprete');
 
-print  "Content-type: text/html", "\n\n";
+
+
+
 my $cgi = new CGI;
 
 my $nombre= $cgi->param("nombre");
@@ -18,27 +21,31 @@ my $nacimiento= $cgi->param("nacimiento");
 
 my $funciono=$servidor->agregar_persona($nombre,$apellido,$direccion,$nacimiento);
 
-print '<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>..::Listado de personas:..</title>
-        <link rel="stylesheet" type="text/css" href="../CSS/Styles.css">
+#print  "Content-type: text/html", "\n\n";
+print $cgi->redirect( 'http://personas.com/cgi-bin/index.pl');
 
-    </head>
-    <body>';
-    if ($funciono)
-    {
-        print "<p> $nombre $apellido agregado correctamente </p>";
-    }
-    else
-    {
-        print "<p> Error desconocido </p>";
-    }
-    print '<a href="index.pl">VOLVER </a>
-    </body>
-    </html>';
-
+#
+#print '<html>
+#    <head>
+#        <meta charset="utf-8">
+#        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#        <title>..::Listado de personas:..</title>
+#        <link rel="stylesheet" type="text/css" href="../CSS/Styles.css">
+#
+#    </head>
+#    <body>';
+#    if ($funciono)
+#    {
+#        print "<p> $nombre $apellido agregado correctamente </p>";
+#    }
+#    else
+#    {
+#        print "<p> Error desconocido </p>";
+#    }
+#    print '<a href="index.pl">VOLVER </a>
+#    </body>
+#    </html>';
+#
 
 
 #$nombre= $simple_form{"nombre"};
