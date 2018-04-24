@@ -1,0 +1,6 @@
+   database:
+        host: localhost
+        db: Persona
+        user: root
+        password: diego
+
