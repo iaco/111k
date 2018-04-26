@@ -15,27 +15,80 @@
 
 
 <tr>
-<form action="modificar_persona.pl" METHOD="POST">
 <input type="hidden" name="id" readonly="1" value="[% persona.id %]">
-<td><input name="nombre" value="[% persona.nombre %]"></td>
-<td><input name="apellido" value="[% persona.apellido %]"></td>
-<td><input type="text" name="direccion" value="[% persona.direccion %]"> </td>
-<td><input type="date" name="nacimiento" value="[% persona.nacimiento %]"></td>
+<td><input id="[% persona.id %]nombre" type="text" name="nombre" value="[% persona.nombre %]"></td>
+<td><input id="[% persona.id %]apellido" type="text" name="apellido" value="[% persona.apellido %]"></td>
+<td><input id="[% persona.id %]direccion" type="text" name="direccion" value="[% persona.direccion %]"> </td>
+<td><input id="[% persona.id %]nacimiento" type="date" name="nacimiento" value="[% persona.nacimiento %]"></td>
 <td>[% persona.edad %]</td>
-<td><input type="submit" value="Modificar">
-    <input type="submit" value="Eliminar" formaction="eliminar_persona.pl">
+<td><button type="button" onclick="modificar('[% persona.id %]')" >Actualizar</button>
+    <button type="button" onclick="eliminar('[% persona.id %]')" >Eliminar</button>
     </td>
-</form>
 </tr> 
 [% END %]
 <tr>
-<form action="agregar_persona.pl" METHOD="POST">
-    <td><input type="text" NAME="nombre"></td>
-    <td><input type="text" NAME="apellido"></td>
-    <td><input type="text" name="direccion"></td>
-    <td><input type="date" name="nacimiento"></td>
+<form action="agregar_persona.pl" METHOD="POST" id="form_agregar">
+    <td><input type="text" NAME="nombre" required></td>
+    <td><input type="text" NAME="apellido" required></td>
+    <td><input type="text" name="direccion" required></td>
+    <td><input type="date" name="nacimiento" required></td>
     <td></td>                        
-    <td style="text-align:center;"><input type="submit" value="Agregar" self-align:center></td>
+    <td style="text-align:center;"> <button type="button" onclick="agregar(nombre,apellido,direccion,nacimiento)">Agregar</button></td>
 </form>
 </tr>
 </table>
+
+<form action="eliminar_persona.pl" METHOD="POST" id="form_eliminar">
+    <input type="hidden" name="id" value="" id="input_form_eliminar">
+</form>
+
+<form action="modificar_persona.pl" METHOD="POST" id="form_modificar">
+    <input type="hidden" name="id" value="" id="id_form_modificar">
+    <input type="hidden" name="nombre" value="" id="nombre_form_modificar">
+    <input type="hidden" name="apellido" value="" id="apellido_form_modificar">
+    <input type="hidden" name="direccion" value="" id="direccion_form_modificar">
+    <input type="hidden" type="date" name="nacimiento" value="" id="nacimiento_form_modificar">
+</form>
+
+
+<script type="text/javascript">
+
+function modificar(id) {
+    
+    var nombre = document.getElementById(id+"nombre").value;
+    var apellido = document.getElementById(id+"apellido").value;
+    var direccion = document.getElementById(id+"direccion").value;
+    var nacimiento = document.getElementById(id+"nacimiento").value;
+    
+
+
+    //ACA DEBERIAMOS SANITIZAR LOS PARAMETROS
+
+    document.getElementById("id_form_modificar").defaultValue=id;
+    document.getElementById("nombre_form_modificar").defaultValue=nombre;
+    document.getElementById("apellido_form_modificar").defaultValue=apellido;
+    document.getElementById("direccion_form_modificar").defaultValue=direccion;
+    document.getElementById("nacimiento_form_modificar").defaultValue=nacimiento;
+    document.getElementById("form_modificar").submit();
+
+}
+
+
+function eliminar(id) {
+    
+    document.getElementById("input_form_eliminar").defaultValue=id;
+    document.getElementById("form_eliminar").submit();
+}
+
+function agregar(n,a,d,nac){
+    var nombre=n.value;
+    var apellido=a.value;
+    var direccion=d.value;
+    var nacimiento=nac.value;
+    //Aca deberiamos sanitizar los campos
+
+    document.getElementById("form_agregar").submit();
+
+}
+
+</script>
