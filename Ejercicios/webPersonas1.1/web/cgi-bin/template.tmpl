@@ -1,5 +1,3 @@
-[% FOREACH persona IN personas %]
-[% IF loop.first %]
 <table border="1" text-align=center>
 <tr>
     <th>NOMBRE</th>
@@ -9,7 +7,9 @@
     <th>EDAD</th>
     <th>ACCIONES</th>
 </tr>
-[% END%]
+
+[% FOREACH persona IN personas %]
+
 
 <tr>
 <form action="modificar_persona.pl" METHOD="POST">
@@ -24,18 +24,15 @@
     </td>
 </form>
 </tr> 
-
-[%IF loop.last %]
+[% END %]
 <tr>
 <form action="agregar_persona.pl" METHOD="POST">
     <td><input type="text" NAME="nombre"></td>
     <td><input type="text" NAME="apellido"></td>
     <td><input type="text" name="direccion"></td>
     <td><input type="date" name="nacimiento"></td>
-    <td>edad</td>                        
+    <td></td>                        
     <td style="text-align:center;"><input type="submit" value="Agregar" self-align:center></td>
 </form>
 </tr>
 </table>
-[% END %]
-[% END %]
