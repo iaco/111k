@@ -1,0 +1,41 @@
+[% FOREACH persona IN personas %]
+[% IF loop.first %]
+<table border="1" text-align=center>
+<tr>
+    <th>NOMBRE</th>
+    <th>APELLIDO</th>
+    <th>DIRECCION</th>
+    <th>Fecha_Nacimiento</th>
+    <th>EDAD</th>
+    <th>ACCIONES</th>
+</tr>
+[% END%]
+
+<tr>
+<form action="modificar_persona.pl" METHOD="POST">
+<input type="hidden" name="id" readonly="1" value="[% persona.id %]">
+<td><input name="nombre" value="[% persona.nombre %]"></td>
+<td><input name="apellido" value="[% persona.apellido %]"></td>
+<td><input type="text" name="direccion" value="[% persona.direccion %]"> </td>
+<td><input type="date" name="nacimiento" value="[% persona.nacimiento %]"></td>
+<td>[% persona.edad %]</td>
+<td><input type="submit" value="Modificar">
+    <input type="submit" value="Eliminar" formaction="eliminar_persona.pl">
+    </td>
+</form>
+</tr> 
+
+[%IF loop.last %]
+<tr>
+<form action="agregar_persona.pl" METHOD="POST">
+    <td><input type="text" NAME="nombre"></td>
+    <td><input type="text" NAME="apellido"></td>
+    <td><input type="text" name="direccion"></td>
+    <td><input type="date" name="nacimiento"></td>
+    <td>edad</td>                        
+    <td><input type="submit" value="Agregar" align=center></td>
+</form>
+</tr>
+</table>
+[% END %]
+[% END %]

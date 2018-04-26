@@ -2,27 +2,36 @@
 use lib "./../controller";
 use Interprete;
 use CGI;
-use HTML::Template;
+use Template;
 use CGI::Session;
 
 my $cgi= new CGI;
         
 my $session = new CGI::Session;
-my $template = new HTML::Template(filename=>"form.tmpl");
-
 
 my $servidor= new Interprete;
-
 $session->param('interprete',$servidor);
+my $template = new Template({
+    INCLUDE_PATH=>'/home/agustin/git/111k/Ejercicios/webPersonas1.1/web/cgi-bin/',
+    EVAL_PERL =>1,
+}
+);
+my $input = "template.tmpl";
+
 my @personas = $servidor->get_lista;
 
-$template->param(ROWS => \@personas);
+my $vars ={
+    personas => \@personas,
+};
+
+
+
+
 
 #print "Content-type: text/html\n\n";
 print $session->header;
 print &encabezado;
-
-print $template->output;
+$template->process ($input, $vars) || die $template->error();
 print &cierre;
 
 
