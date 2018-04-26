@@ -22,12 +22,17 @@ border-right-color: #EBE9BC;
 border-bottom-color: #EBE9BC;
 
 }
-th {
-    text-align: center;
+
+h2 { text-shadow: center;  }
+
+tr:nth-child(even) {
+    background-color: #dddddd;
 }
-td{
-    align: center;
-    text-aling: center;
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
 }
 
 input_text {

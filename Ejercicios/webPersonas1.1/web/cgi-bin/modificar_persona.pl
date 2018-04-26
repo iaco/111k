@@ -20,7 +20,7 @@ my $nacimiento= $cgi->param("nacimiento");
 
 my $funciono =$servidor->modificar_persona($id,$nombre,$apellido,$direccion,$nacimiento);
 
-print $cgi->redirect( 'http://personas.com/cgi-bin/index.pl');
+print $cgi->redirect( 'http://personas2.com/cgi-bin/index.pl');
 #print $cgi->header(-charset    => 'utf-8');
 print '<html>
     <head>

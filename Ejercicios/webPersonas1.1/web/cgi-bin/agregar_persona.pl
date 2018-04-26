@@ -22,7 +22,7 @@ my $nacimiento= $cgi->param("nacimiento");
 my $funciono=$servidor->agregar_persona($nombre,$apellido,$direccion,$nacimiento);
 
 #print  "Content-type: text/html", "\n\n";
-print $cgi->redirect( 'http://personas.com/cgi-bin/index.pl');
+print $cgi->redirect( 'http://personas2.com/cgi-bin/index.pl');
 
 #
 #print '<html>

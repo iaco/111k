@@ -14,7 +14,7 @@ my $id = $cgi->param("id");
 
 my $funciono=$servidor->eliminar_persona($id);
 
-print $cgi->redirect( 'http://personas.com/cgi-bin/index.pl');
+print $cgi->redirect( 'http://personas2.com/cgi-bin/index.pl');
 
 #print  "Content-type: text/html", "\n\n";
 #print '<html>
