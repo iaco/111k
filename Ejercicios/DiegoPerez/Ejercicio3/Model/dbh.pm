@@ -24,13 +24,12 @@ sub agregar_persona
 sub eliminar_persona
 {
 
-	my ($self,$nombre, $apellido, $direccion, $fechanac) = @_;
+	my ($self,$id, $nombre, $apellido, $direccion, $fechanac) = @_;
   
-    my $nuevo = new Persona(nombre => $nombre, apellido => $apellido, direccion => $direccion, Nacimiento=> $fechanac);
-    $nuevo->get_by(qw(nombre apellido direccion Nacimiento));
+    my $nuevo = new Persona(id => $id, nombre => $nombre, apellido => $apellido, direccion => $direccion, Nacimiento=> $fechanac);
+    $nuevo->get_by(qw(id nombre apellido direccion Nacimiento));
     if ($nuevo->id) {
         $nuevo->delete;
-        print "$apellido, $nombre eliminado\n";
         return 1;
     } else {
         print STDERR "La persona $apellido, $nombre no fue encontrado\n";

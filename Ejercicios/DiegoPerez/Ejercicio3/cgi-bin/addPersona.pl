@@ -12,11 +12,11 @@ my $nombre     = $cgi->param('nombre');
 my $apellido   = $cgi->param('apellido');
 my $direccion  = $cgi->param('direccion');
 my $nacimiento = $cgi->param('Nacimiento');
-my	
-print $cgi->header;
+	
+
 print  "Content-type: text/html", "\n\n";
 
-my $funciono=$servidor->agregar_persona($nombre,$apellido,$direccion,$nacimiento);
+my $inserto = $gestor->addPersona($nombre,$apellido,$direccion,$nacimiento);
 
 print '<html>
     <body>';

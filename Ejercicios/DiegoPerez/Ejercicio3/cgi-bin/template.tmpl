@@ -14,7 +14,7 @@ h2    {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 80%;
 }
 
 td, th {
@@ -47,12 +47,12 @@ tr:nth-child(even) {
   
   <tr>
     <form action="updatePersona.pl" METHOD="POST">
-    <input type="hidden" name="id" readonly="1" value=[% personas.loop.id %]>
-    <td><input type="text"   name="nombre" value=[% personas.loop.nombre %]></td>
-    <td><input type="text"   name="apellido" value=[% personas.loop.apellido %]></td>
-    <td><input type="text"   name="direccion" value=[% personas.loop.direccion %]> </td>
-    <td><input type="date"   name="Nacimiento" value=[% personas.loop.nacimiento %]></td>
-    <td><input type="text"    name="edad" value=[% personas.loop.edad %]></td>
+    <input type="hidden" name="id" readonly="1" value=[% persona.id %]>
+    <td><input type="text"    name="nombre" value=[% persona.nombre %]></td>
+    <td><input type="text"   name="apellido" value=[% persona.apellido %]></td>
+    <td><input type="text"   name="direccion" value=[% persona.direccion %]> </td>
+    <td><input type="date"   name="Nacimiento" value=[% persona.nacimiento %]></td>
+    <td><input type="text"    name="edad" value=[% persona.edad %]></td>
     <td><input type="submit" value="Modificar">
         <input type="submit" value="Eliminar" formaction="deletePersona.pl">
     </td>
@@ -67,7 +67,7 @@ tr:nth-child(even) {
 
   <br>
   <br>  
-  <a href="/Exercies/Ejercicio3/cgi-bin/addPersona.pl">Pulse aqui para agregar una Persona</a> 
+  <a href="../addPersona.html">Pulse aqui para agregar una Persona</a> 
 
 </body>
 </html>
