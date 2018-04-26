@@ -12,7 +12,7 @@ my $session = new CGI::Session;
 my $servidor= new Interprete;
 $session->param('interprete',$servidor);
 my $template = new Template({
-    INCLUDE_PATH=>'/home/agustin/git/111k/Ejercicios/webPersonas1.1/web/cgi-bin/',
+    INCLUDE_PATH=>'../cgi-bin/',
     EVAL_PERL =>1,
 }
 );
