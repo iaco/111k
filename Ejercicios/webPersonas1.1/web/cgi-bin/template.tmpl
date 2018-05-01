@@ -16,22 +16,30 @@
 
 <tr>
 <input type="hidden" name="id" readonly="1" value="[% persona.id %]">
-<td><input id="[% persona.id %]nombre" type="text" name="nombre" value="[% persona.nombre %]"></td>
-<td><input id="[% persona.id %]apellido" type="text" name="apellido" value="[% persona.apellido %]"></td>
-<td><input id="[% persona.id %]direccion" type="text" name="direccion" value="[% persona.direccion %]"> </td>
-<td><input id="[% persona.id %]nacimiento" type="date" name="nacimiento" value="[% persona.nacimiento %]"></td>
+<td><input id="[% persona.id %]nombre" type="text" maxlength="255" name="nombre" value="[% persona.nombre %]" required></td>
+<td><input id="[% persona.id %]apellido" type="text" maxlength="255" name="apellido" value="[% persona.apellido %]" required></td>
+<td><input id="[% persona.id %]direccion" type="text" charset="utf-8" maxlength="255" name="direccion" value="[% persona.direccion %]"
+        pattern="^[a-zA-Z0-9\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute][a-zA-Z0-9\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute -,&#039(\.)]{0,254}$" onchange="checkValidity()" 
+        title="Una direccion puede contener letras sin acento, numeros, espacio, - y ' permitidos. No comienza con un espacio" required> </td>
+<td><input id="[% persona.id %]nacimiento" type="date" name="nacimiento" value="[% persona.nacimiento %]" max="[% fecha_max %]" required></td>
 <td>[% persona.edad %]</td>
 <td><button type="button" onclick="modificar('[% persona.id %]')" >Actualizar</button>
     <button type="button" onclick="eliminar('[% persona.id %]')" >Eliminar</button>
     </td>
 </tr> 
 [% END %]
+
+<tr>
+<td colspan="2">Agregar una nueva persona</td>
+</tr>
 <tr>
 <form action="agregar_persona.pl" METHOD="POST" id="form_agregar">
-    <td><input type="text" NAME="nombre" required></td>
-    <td><input type="text" NAME="apellido" required></td>
-    <td><input type="text" name="direccion" required></td>
-    <td><input type="date" name="nacimiento" value ="" required></td>
+    <td><input type="text" placeholder="Nombres" maxlength="255" NAME="nombre" required></td>
+    <td><input type="text" placeholder="Apellidos" maxlength="255" NAME="apellido" required></td>
+    <td><input type="text" placeholder="Direccion Ej: Mitre 1234 Depto 2A" maxlength="255" name="direccion" 
+    pattern="^[a-zA-Z0-9\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute][a-zA-Z0-9\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute -,&#039(\.)]{0,254}$" onchange="checkValidity()" 
+    title="Una direccion puede contener letras sin acento, numeros, espacio, - y ' permitidos. No comienza con un espacio" required/></td>
+    <td><input type="date"  name="nacimiento" value="" max="[% fecha_max %]" required></td>
     <td></td>                        
     <td style="text-align:center;"> <button type="button" onclick="agregar(nombre,apellido,direccion,nacimiento)">Agregar</button></td>
 </form>
@@ -44,9 +52,9 @@
 
 <form action="modificar_persona.pl" METHOD="POST" id="form_modificar">
     <input type="hidden" name="id" value="" id="id_form_modificar">
-    <input type="hidden" name="nombre" value="" id="nombre_form_modificar">
-    <input type="hidden" name="apellido" value="" id="apellido_form_modificar">
-    <input type="hidden" name="direccion" value="" id="direccion_form_modificar">
+    <input type="hidden" maxlegth="255" name="nombre" value="" id="nombre_form_modificar">
+    <input type="hidden" maxlegth="255" name="apellido" value="" id="apellido_form_modificar">
+    <input type="hidden" maxlegth="255" name="direccion" value="" id="direccion_form_modificar">
     <input type="hidden" type="date" name="nacimiento" value="" id="nacimiento_form_modificar">
 </form>
 
@@ -57,29 +65,18 @@
 
 
 function modificar(id) {
-    
-    var nombre     = document.getElementById(id+"nombre").value;
-    var apellido   = document.getElementById(id+"apellido").value;
-    var direccion  = document.getElementById(id+"direccion").value;
-    var nacimiento = document.getElementById(id+"nacimiento").value;
-    
-
-
-    //ACA DEBERIAMOS SANITIZAR LOS PARAMETROS
-
-    var nomvalid = valid(nombre);
-    var apevalid = valid(apellido);
-
-    if ((nomvalid) && (apevalid)) {
-
+    var input_nombre = document.getElementById(id+"nombre");
+    var input_apellido = document.getElementById(id+"apellido");
+    var input_direccion = document.getElementById(id+"direccion");
+    var input_nacimiento = document.getElementById(id+"nacimiento");
+    if (validar_form(input_nombre,input_apellido,input_direccion,input_nacimiento))
+    {
         document.getElementById("id_form_modificar").defaultValue=id;
-        document.getElementById("nombre_form_modificar").defaultValue=nombre;
-        document.getElementById("apellido_form_modificar").defaultValue=apellido;
-        document.getElementById("direccion_form_modificar").defaultValue=direccion;
-        document.getElementById("nacimiento_form_modificar").defaultValue=nacimiento;
+        document.getElementById("nombre_form_modificar").defaultValue=input_nombre.value;
+        document.getElementById("apellido_form_modificar").defaultValue=input_apellido.value;
+        document.getElementById("direccion_form_modificar").defaultValue=input_direccion.value;
+        document.getElementById("nacimiento_form_modificar").defaultValue=input_nacimiento.value;
         document.getElementById("form_modificar").submit();
-    } else {
-        alert('Nombre o Apellido con caracteres no validos');
     }
 }
 
@@ -90,7 +87,7 @@ function valid(nombre) {
 
       //^([a-z]|[A-Z]|á|é|í|ó|ú|ñ|ü|\s|\.|-)+$/
 
-      if( nombre.match( /[|<|,|>|\.|\?|\/|:|;|"|'|{|\[|}|\]|\||\\|~|`|!|@|#|\$|%|\^|&|\*|\(|\)|_|\-|\+|=]+/ ) != null ) {
+      if( nombre.match( /[\d|<|,|>|\.|\?|\/|:|;|"|'|{|\[|}|\]|\||\\|~|`|!|@|#|\$|%|\^|&|\*|\(|\)|_|\-|\+|=]+/ ) != null ) {
 
           validity = false;
      }
@@ -101,24 +98,49 @@ function valid(nombre) {
 
 
 function eliminar(id) {
-    
-    document.getElementById("input_form_eliminar").defaultValue=id;
-    document.getElementById("form_eliminar").submit();
+    if (confirm("¿Estas seguro de que quieres eliminar esta persona?"))
+    {
+        document.getElementById("input_form_eliminar").defaultValue=id;
+        document.getElementById("form_eliminar").submit();
+    }
 }
 
-function agregar(n,a,d,nac){
-    var nombre=n.value;
-    var apellido=a.value;
-    var direccion=d.value;
-    var nacimiento=nac.value;
-    //Aca deberiamos sanitizar los campos
-    var nomvalid = valid(nombre);
-    var apevalid = valid(apellido);
-
-    if ((nomvalid) && (apevalid)) {
+function agregar(input_nombre,input_apellido,input_direccion,input_nacimiento){    
+    if (validar_form(input_nombre,input_apellido,input_direccion,input_nacimiento))
+    {
         document.getElementById("form_agregar").submit();
-    } else {
-        alert("Ingrese solo letras mayusculas o minusculas sin acento");
     }
+}
+
+function validar_form(input_nombre,input_apellido,input_direccion,input_nacimiento)
+{
+    var correcto=true;
+    var regex_direccion = /^[a-zA-Z\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute\d\-\,\'\.][a-zA-Z\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute\d\s\-\,\'\.]{0,254}$/;
+    var direccion = input_direccion.value;
+    var mensaje="";
+    if (!input_direccion.checkValidity())
+    {
+        mensaje += "Direccion incorrecta:\nUna direccion puede contener letras sin acento, numeros, espacio, - y ' permitidos. No comienza con un espacio\n";
+        correcto=false;
+    }
+    if (!input_nacimiento.checkValidity())
+    {
+        mensaje+= "Fecha incorrecta:\nFecha maxima=[% fecha_max %]";
+        correcto=false;
+
+    }
+    var nomvalid = valid(input_nombre.value);
+    var apevalid = valid(input_apellido.value);
+
+    if (!(nomvalid && apevalid)) {
+        correcto=false;
+        mensaje+="Nombre o apellidos incorrectos\n";
+    }
+    if (!correcto)
+    {
+        alert(mensaje);
+    }
+    return correcto;
+
 }
 </script>

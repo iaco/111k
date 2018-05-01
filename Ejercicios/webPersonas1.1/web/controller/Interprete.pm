@@ -5,7 +5,8 @@ use Persona;
 use Personas;
 use AltaBajaModif;
 use Moose;
-use Date::Tiny
+use Date::Tiny;
+use utf8;
 
 has "abm"=>(is=>"ro", isa=>"AltaBajaModif", default=> sub() { new AltaBajaModif});
 has "diccionario"=>(is=>"ro",isa=>"HashRef");

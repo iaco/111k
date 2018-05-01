@@ -5,6 +5,8 @@ use Interprete;
 use CGI;
 use Template;
 use CGI::Session;
+use utf8;
+use Date::Tiny;
 
 my $cgi= new CGI;
         
@@ -20,8 +22,10 @@ my $template = new Template({
 my $input = "template.tmpl";
 
 my @personas = $servidor->get_lista;
-
+my $hoy = Date::Tiny->now;
+my $fecha_max= $hoy->ymd;
 my $vars ={
+    fecha_max => $fecha_max,
     personas => \@personas,
 };
 #Prueba de branch
