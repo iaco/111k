@@ -24,7 +24,9 @@ my $input = "template.tmpl";
 my @personas = $servidor->get_lista;
 my $hoy = Date::Tiny->now;
 my $fecha_max= $hoy->ymd;
+my $patron_direccion = "^[a-zA-Z0-9\\u00F1\\u00D1&aacute&eacute&iacute&oacute&uacute][a-zA-Z0-9\\u00F1\\u00D1&aacute&eacute&iacute&oacute&uacute -,&#039(\.)]{4,254}\$";
 my $vars ={
+    patron_direccion => $patron_direccion,
     fecha_max => $fecha_max,
     personas => \@personas,
 };

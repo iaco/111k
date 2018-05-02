@@ -19,7 +19,7 @@
 <td><input id="[% persona.id %]nombre" type="text" maxlength="255" name="nombre" value="[% persona.nombre %]" required></td>
 <td><input id="[% persona.id %]apellido" type="text" maxlength="255" name="apellido" value="[% persona.apellido %]" required></td>
 <td><input id="[% persona.id %]direccion" type="text" charset="utf-8" maxlength="255" name="direccion" value="[% persona.direccion %]"
-        pattern="^[a-zA-Z0-9\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute][a-zA-Z0-9\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute -,&#039(\.)]{0,254}$" onchange="checkValidity()" 
+        pattern="[% patron_direccion %]" onchange="checkValidity()" 
         title="Una direccion puede contener letras sin acento, numeros, espacio, - y ' permitidos. No comienza con un espacio" required> </td>
 <td><input id="[% persona.id %]nacimiento" type="date" name="nacimiento" value="[% persona.nacimiento %]" max="[% fecha_max %]" required></td>
 <td>[% persona.edad %]</td>
@@ -37,8 +37,8 @@
     <td><input type="text" placeholder="Nombres" maxlength="255" NAME="nombre" required></td>
     <td><input type="text" placeholder="Apellidos" maxlength="255" NAME="apellido" required></td>
     <td><input type="text" placeholder="Direccion Ej: Mitre 1234 Depto 2A" maxlength="255" name="direccion" 
-    pattern="^[a-zA-Z0-9\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute][a-zA-Z0-9\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute -,&#039(\.)]{0,254}$" onchange="checkValidity()" 
-    title="Una direccion puede contener letras sin acento, numeros, espacio, - y ' permitidos. No comienza con un espacio" required/></td>
+    pattern="[% patron_direccion %]" onchange="checkValidity()" 
+    title="Una direccion puede contener letras, numeros, espacio y simbolos (- ') permitidos. No comienza con un espacio" required/></td>
     <td><input type="date"  name="nacimiento" value="" max="[% fecha_max %]" required></td>
     <td></td>                        
     <td style="text-align:center;"> <button type="button" onclick="agregar(nombre,apellido,direccion,nacimiento)">Agregar</button></td>
@@ -115,7 +115,7 @@ function agregar(input_nombre,input_apellido,input_direccion,input_nacimiento){
 function validar_form(input_nombre,input_apellido,input_direccion,input_nacimiento)
 {
     var correcto=true;
-    var regex_direccion = /^[a-zA-Z\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute\d\-\,\'\.][a-zA-Z\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute\d\s\-\,\'\.]{0,254}$/;
+    //var regex_direccion = /^[a-zA-Z\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute\d\-\,\'\.][a-zA-Z\u00F1\u00D1&aacute&eacute&iacute&oacute&uacute\d\s\-\,\'\.]{0,254}$/;
     var direccion = input_direccion.value;
     var mensaje="";
     if (!input_direccion.checkValidity())
