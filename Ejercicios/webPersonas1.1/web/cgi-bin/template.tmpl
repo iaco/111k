@@ -31,7 +31,7 @@
     <td><input type="text" NAME="nombre" required></td>
     <td><input type="text" NAME="apellido" required></td>
     <td><input type="text" name="direccion" required></td>
-    <td><input type="date" name="nacimiento" required></td>
+    <td><input type="date" name="nacimiento" value ="" required></td>
     <td></td>                        
     <td style="text-align:center;"> <button type="button" onclick="agregar(nombre,apellido,direccion,nacimiento)">Agregar</button></td>
 </form>
@@ -53,25 +53,51 @@
 
 <script type="text/javascript">
 
+
+
+
 function modificar(id) {
     
-    var nombre = document.getElementById(id+"nombre").value;
-    var apellido = document.getElementById(id+"apellido").value;
-    var direccion = document.getElementById(id+"direccion").value;
+    var nombre     = document.getElementById(id+"nombre").value;
+    var apellido   = document.getElementById(id+"apellido").value;
+    var direccion  = document.getElementById(id+"direccion").value;
     var nacimiento = document.getElementById(id+"nacimiento").value;
     
 
 
     //ACA DEBERIAMOS SANITIZAR LOS PARAMETROS
 
-    document.getElementById("id_form_modificar").defaultValue=id;
-    document.getElementById("nombre_form_modificar").defaultValue=nombre;
-    document.getElementById("apellido_form_modificar").defaultValue=apellido;
-    document.getElementById("direccion_form_modificar").defaultValue=direccion;
-    document.getElementById("nacimiento_form_modificar").defaultValue=nacimiento;
-    document.getElementById("form_modificar").submit();
+    var nomvalid = valid(nombre);
+    var apevalid = valid(apellido);
 
+    if ((nomvalid) && (apevalid)) {
+
+        document.getElementById("id_form_modificar").defaultValue=id;
+        document.getElementById("nombre_form_modificar").defaultValue=nombre;
+        document.getElementById("apellido_form_modificar").defaultValue=apellido;
+        document.getElementById("direccion_form_modificar").defaultValue=direccion;
+        document.getElementById("nacimiento_form_modificar").defaultValue=nacimiento;
+        document.getElementById("form_modificar").submit();
+    } else {
+        alert('Nombre o Apellido con caracteres no validos');
+    }
 }
+
+function valid(nombre) {
+
+      var validity = true;
+      if( nombre == '' ) { validity = false; }
+
+      //^([a-z]|[A-Z]|á|é|í|ó|ú|ñ|ü|\s|\.|-)+$/
+
+      if( nombre.match( /[|<|,|>|\.|\?|\/|:|;|"|'|{|\[|}|\]|\||\\|~|`|!|@|#|\$|%|\^|&|\*|\(|\)|_|\-|\+|=]+/ ) != null ) {
+
+          validity = false;
+     }
+
+      return validity;
+    }
+
 
 
 function eliminar(id) {
@@ -86,9 +112,13 @@ function agregar(n,a,d,nac){
     var direccion=d.value;
     var nacimiento=nac.value;
     //Aca deberiamos sanitizar los campos
+    var nomvalid = valid(nombre);
+    var apevalid = valid(apellido);
 
-    document.getElementById("form_agregar").submit();
-
+    if ((nomvalid) && (apevalid)) {
+        document.getElementById("form_agregar").submit();
+    } else {
+        alert("Ingrese solo letras mayusculas o minusculas sin acento");
+    }
 }
-
 </script>

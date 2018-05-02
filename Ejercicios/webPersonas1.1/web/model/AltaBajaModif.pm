@@ -10,11 +10,13 @@ has "db"=>(is=>"ro", isa=>"DBHandler", default=> sub(){ new DBHandler});
 sub agregar_persona
 {
     my ($self, $nombre, $apellido, $direccion, $fecha)=@_;
+    if ((_validar($nombre)) && (_validar($apellido))){
     
-    if ($self->db->agregar_persona($nombre,$apellido,$direccion,$fecha))
-    {
-        return 1;
-    }
+        if ($self->db->agregar_persona($nombre,$apellido,$direccion,$fecha))
+        {
+            return 1;
+        }
+     }   
     else
     {
         print STDERR "Error al agregar la nueva persona\n";
@@ -53,15 +55,26 @@ sub listar_personas
 sub modificar_persona
 {
     my ($self, $id, $nombre, $apellido,$direccion, $fecha)=@_;
-    if ($self->db->modificar($id,$nombre,$apellido,$direccion,$fecha))
+    if (_validar($nombre) && _validar($apellido))
     {
-        return 1;
+        if ($self->db->modificar($id,$nombre,$apellido,$direccion,$fecha))
+        {
+            return 1;
+        }
     }
     print STDERR "La persona a modificar no existia";
     return 0;
 }
 
+sub _validar
+{
 
+    my $dato  = shift;
+    if ($dato =~ /^[a-z A-Z]+$/)
+    { return 1;}
+    return 0;
 
+}
+no Moose;
 1;
 
